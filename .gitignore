@@ -1,0 +1,33 @@
+# Environment and secrets
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+coverage.xml
+htmlcov/
+dist/
+build/
+*.egg-info/
+.venv/
+venv/
+
+# Test and local database artifacts
+test-results/
+*.sqlite
+*.sqlite3
+*.db
+postgres-data/
+
+# Tooling and operating system files
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db

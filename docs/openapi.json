@@ -1,0 +1,1874 @@
+{
+  "components": {
+    "schemas": {
+      "AuthCredentials": {
+        "additionalProperties": false,
+        "description": "Strict credentials accepted by signup and login.",
+        "properties": {
+          "email": {
+            "format": "email",
+            "title": "Email",
+            "type": "string"
+          },
+          "password": {
+            "maxLength": 128,
+            "minLength": 12,
+            "title": "Password",
+            "type": "string"
+          }
+        },
+        "required": [
+          "email",
+          "password"
+        ],
+        "title": "AuthCredentials",
+        "type": "object"
+      },
+      "BookingCreate": {
+        "additionalProperties": false,
+        "properties": {
+          "appointment_at": {
+            "format": "date-time",
+            "title": "Appointment At",
+            "type": "string"
+          },
+          "centre_test_id": {
+            "format": "uuid",
+            "title": "Centre Test Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "centre_test_id",
+          "appointment_at"
+        ],
+        "title": "BookingCreate",
+        "type": "object"
+      },
+      "BookingDetail": {
+        "properties": {
+          "amount_minor": {
+            "title": "Amount Minor",
+            "type": "integer"
+          },
+          "appointment_at": {
+            "format": "date-time",
+            "title": "Appointment At",
+            "type": "string"
+          },
+          "centre_id": {
+            "format": "uuid",
+            "title": "Centre Id",
+            "type": "string"
+          },
+          "centre_test_id": {
+            "format": "uuid",
+            "title": "Centre Test Id",
+            "type": "string"
+          },
+          "currency": {
+            "title": "Currency",
+            "type": "string"
+          },
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          },
+          "status": {
+            "$ref": "#/components/schemas/BookingStatus"
+          },
+          "test_id": {
+            "format": "uuid",
+            "title": "Test Id",
+            "type": "string"
+          },
+          "user_id": {
+            "format": "uuid",
+            "title": "User Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "user_id",
+          "centre_test_id",
+          "centre_id",
+          "test_id",
+          "appointment_at",
+          "amount_minor",
+          "currency",
+          "status"
+        ],
+        "title": "BookingDetail",
+        "type": "object"
+      },
+      "BookingStatus": {
+        "enum": [
+          "PENDING",
+          "CONFIRMED",
+          "FAILED",
+          "CANCELLED"
+        ],
+        "title": "BookingStatus",
+        "type": "string"
+      },
+      "CentreCreate": {
+        "additionalProperties": false,
+        "properties": {
+          "location": {
+            "maxLength": 250,
+            "minLength": 1,
+            "title": "Location",
+            "type": "string"
+          },
+          "name": {
+            "maxLength": 150,
+            "minLength": 1,
+            "title": "Name",
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "location"
+        ],
+        "title": "CentreCreate",
+        "type": "object"
+      },
+      "CentreDetail": {
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          },
+          "is_active": {
+            "title": "Is Active",
+            "type": "boolean"
+          },
+          "location": {
+            "title": "Location",
+            "type": "string"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "location",
+          "is_active"
+        ],
+        "title": "CentreDetail",
+        "type": "object"
+      },
+      "CentreUpdate": {
+        "additionalProperties": false,
+        "properties": {
+          "location": {
+            "anyOf": [
+              {
+                "maxLength": 250,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Location"
+          },
+          "name": {
+            "anyOf": [
+              {
+                "maxLength": 150,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Name"
+          }
+        },
+        "title": "CentreUpdate",
+        "type": "object"
+      },
+      "DiagnosticTestCreate": {
+        "additionalProperties": false,
+        "properties": {
+          "description": {
+            "anyOf": [
+              {
+                "maxLength": 2000,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Description"
+          },
+          "name": {
+            "maxLength": 150,
+            "minLength": 1,
+            "title": "Name",
+            "type": "string"
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "title": "DiagnosticTestCreate",
+        "type": "object"
+      },
+      "DiagnosticTestDetail": {
+        "additionalProperties": false,
+        "properties": {
+          "description": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Description"
+          },
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          },
+          "is_active": {
+            "title": "Is Active",
+            "type": "boolean"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "description",
+          "is_active"
+        ],
+        "title": "DiagnosticTestDetail",
+        "type": "object"
+      },
+      "DiagnosticTestUpdate": {
+        "additionalProperties": false,
+        "properties": {
+          "description": {
+            "anyOf": [
+              {
+                "maxLength": 2000,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Description"
+          },
+          "name": {
+            "anyOf": [
+              {
+                "maxLength": 150,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Name"
+          }
+        },
+        "title": "DiagnosticTestUpdate",
+        "type": "object"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "title": "Detail",
+            "type": "array"
+          }
+        },
+        "title": "HTTPValidationError",
+        "type": "object"
+      },
+      "OfferingCreate": {
+        "additionalProperties": false,
+        "properties": {
+          "price_minor": {
+            "exclusiveMinimum": 0.0,
+            "title": "Price Minor",
+            "type": "integer"
+          },
+          "test_id": {
+            "format": "uuid",
+            "title": "Test Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "test_id",
+          "price_minor"
+        ],
+        "title": "OfferingCreate",
+        "type": "object"
+      },
+      "OfferingDetail": {
+        "additionalProperties": false,
+        "properties": {
+          "centre_id": {
+            "format": "uuid",
+            "title": "Centre Id",
+            "type": "string"
+          },
+          "currency": {
+            "title": "Currency",
+            "type": "string"
+          },
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          },
+          "is_active": {
+            "title": "Is Active",
+            "type": "boolean"
+          },
+          "price_minor": {
+            "title": "Price Minor",
+            "type": "integer"
+          },
+          "test_id": {
+            "format": "uuid",
+            "title": "Test Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "centre_id",
+          "test_id",
+          "price_minor",
+          "currency",
+          "is_active"
+        ],
+        "title": "OfferingDetail",
+        "type": "object"
+      },
+      "OfferingUpdate": {
+        "additionalProperties": false,
+        "properties": {
+          "price_minor": {
+            "exclusiveMinimum": 0.0,
+            "title": "Price Minor",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "price_minor"
+        ],
+        "title": "OfferingUpdate",
+        "type": "object"
+      },
+      "PaymentCreate": {
+        "additionalProperties": false,
+        "properties": {
+          "booking_id": {
+            "format": "uuid",
+            "title": "Booking Id",
+            "type": "string"
+          },
+          "simulate_status": {
+            "$ref": "#/components/schemas/PaymentStatus"
+          }
+        },
+        "required": [
+          "booking_id",
+          "simulate_status"
+        ],
+        "title": "PaymentCreate",
+        "type": "object"
+      },
+      "PaymentDetail": {
+        "properties": {
+          "amount_minor": {
+            "title": "Amount Minor",
+            "type": "integer"
+          },
+          "booking_id": {
+            "format": "uuid",
+            "title": "Booking Id",
+            "type": "string"
+          },
+          "currency": {
+            "title": "Currency",
+            "type": "string"
+          },
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          },
+          "status": {
+            "$ref": "#/components/schemas/PaymentStatus"
+          }
+        },
+        "required": [
+          "id",
+          "booking_id",
+          "amount_minor",
+          "currency",
+          "status"
+        ],
+        "title": "PaymentDetail",
+        "type": "object"
+      },
+      "PaymentStatus": {
+        "enum": [
+          "PENDING",
+          "SUCCESS",
+          "FAILED"
+        ],
+        "title": "PaymentStatus",
+        "type": "string"
+      },
+      "SignupResponse": {
+        "description": "Safe representation of a newly registered user.",
+        "properties": {
+          "email": {
+            "format": "email",
+            "title": "Email",
+            "type": "string"
+          },
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "email"
+        ],
+        "title": "SignupResponse",
+        "type": "object"
+      },
+      "TokenResponse": {
+        "description": "Bearer token returned after a successful login.",
+        "properties": {
+          "access_token": {
+            "title": "Access Token",
+            "type": "string"
+          },
+          "expires_in": {
+            "exclusiveMinimum": 0.0,
+            "title": "Expires In",
+            "type": "integer"
+          },
+          "token_type": {
+            "default": "bearer",
+            "title": "Token Type",
+            "type": "string"
+          }
+        },
+        "required": [
+          "access_token",
+          "expires_in"
+        ],
+        "title": "TokenResponse",
+        "type": "object"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "title": "Location",
+            "type": "array"
+          },
+          "msg": {
+            "title": "Message",
+            "type": "string"
+          },
+          "type": {
+            "title": "Error Type",
+            "type": "string"
+          }
+        },
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError",
+        "type": "object"
+      },
+      "WebhookRequest": {
+        "additionalProperties": false,
+        "example": {
+          "amount_minor": 49900,
+          "currency": "INR",
+          "event_id": "evt-demo-payment-001",
+          "payment_id": "11111111-1111-4111-8111-111111111111",
+          "status": "SUCCESS"
+        },
+        "properties": {
+          "amount_minor": {
+            "examples": [
+              49900
+            ],
+            "exclusiveMinimum": 0.0,
+            "title": "Amount Minor",
+            "type": "integer"
+          },
+          "currency": {
+            "examples": [
+              "INR"
+            ],
+            "pattern": "^INR$",
+            "title": "Currency",
+            "type": "string"
+          },
+          "event_id": {
+            "examples": [
+              "evt-demo-payment-001"
+            ],
+            "maxLength": 100,
+            "minLength": 1,
+            "title": "Event Id",
+            "type": "string"
+          },
+          "payment_id": {
+            "examples": [
+              "11111111-1111-4111-8111-111111111111"
+            ],
+            "format": "uuid",
+            "title": "Payment Id",
+            "type": "string"
+          },
+          "status": {
+            "$ref": "#/components/schemas/PaymentStatus",
+            "examples": [
+              "SUCCESS"
+            ]
+          }
+        },
+        "required": [
+          "event_id",
+          "payment_id",
+          "status",
+          "amount_minor",
+          "currency"
+        ],
+        "title": "WebhookRequest",
+        "type": "object"
+      },
+      "WebhookResponse": {
+        "properties": {
+          "disposition": {
+            "title": "Disposition",
+            "type": "string"
+          },
+          "payment_id": {
+            "format": "uuid",
+            "title": "Payment Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "payment_id",
+          "disposition"
+        ],
+        "title": "WebhookResponse",
+        "type": "object"
+      }
+    },
+    "securitySchemes": {
+      "BearerAuth": {
+        "scheme": "bearer",
+        "type": "http"
+      },
+      "HTTPBearer": {
+        "scheme": "bearer",
+        "type": "http"
+      },
+      "WebhookSecret": {
+        "in": "header",
+        "name": "X-Webhook-Secret",
+        "type": "apiKey"
+      }
+    }
+  },
+  "info": {
+    "description": "Backend service for diagnostic test booking.",
+    "title": "EVE Diagnostic Booking API",
+    "version": "0.1.0"
+  },
+  "openapi": "3.1.0",
+  "paths": {
+    "/auth/login/": {
+      "post": {
+        "description": "Authenticate credentials and return a signed bearer token.",
+        "operationId": "login_auth_login__post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AuthCredentials"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TokenResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Login",
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "/auth/secret/": {
+      "get": {
+        "description": "Demonstrate an endpoint that requires a valid bearer token.",
+        "operationId": "secret_auth_secret__get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "title": "Response Secret Auth Secret  Get",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Secret",
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "/auth/signup/": {
+      "post": {
+        "description": "Register one new account for an email address.",
+        "operationId": "signup_auth_signup__post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AuthCredentials"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SignupResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Signup",
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "/bookings/": {
+      "get": {
+        "operationId": "list_own_bookings__get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "status",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/BookingStatus"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Status"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 20,
+              "maximum": 100,
+              "minimum": 1,
+              "title": "Limit",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "required": false,
+            "schema": {
+              "default": 0,
+              "minimum": 0,
+              "title": "Offset",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "title": "Response List Own Bookings  Get",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "List Own",
+        "tags": [
+          "bookings"
+        ]
+      },
+      "post": {
+        "operationId": "create_bookings__post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BookingCreate"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BookingDetail"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Create",
+        "tags": [
+          "bookings"
+        ]
+      }
+    },
+    "/bookings/{booking_id}/": {
+      "get": {
+        "operationId": "detail_bookings__booking_id___get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "booking_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Booking Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BookingDetail"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Detail",
+        "tags": [
+          "bookings"
+        ]
+      }
+    },
+    "/centres/": {
+      "get": {
+        "operationId": "centres_centres__get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "location",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Location"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 20,
+              "maximum": 100,
+              "minimum": 1,
+              "title": "Limit",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "required": false,
+            "schema": {
+              "default": 0,
+              "minimum": 0,
+              "title": "Offset",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "title": "Response Centres Centres  Get",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Centres",
+        "tags": [
+          "catalogue"
+        ]
+      },
+      "post": {
+        "operationId": "create_centre_centres__post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CentreCreate"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CentreDetail"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Create Centre",
+        "tags": [
+          "catalogue"
+        ]
+      }
+    },
+    "/centres/{centre_id}/": {
+      "delete": {
+        "operationId": "delete_centre_centres__centre_id___delete",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "centre_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Centre Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Delete Centre",
+        "tags": [
+          "catalogue"
+        ]
+      },
+      "get": {
+        "operationId": "centre_centres__centre_id___get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "centre_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Centre Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CentreDetail"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Centre",
+        "tags": [
+          "catalogue"
+        ]
+      },
+      "patch": {
+        "operationId": "patch_centre_centres__centre_id___patch",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "centre_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Centre Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CentreUpdate"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CentreDetail"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Patch Centre",
+        "tags": [
+          "catalogue"
+        ]
+      }
+    },
+    "/centres/{centre_id}/tests/": {
+      "get": {
+        "operationId": "offerings_centres__centre_id__tests__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "centre_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Centre Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/OfferingDetail"
+                  },
+                  "title": "Response Offerings Centres  Centre Id  Tests  Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Offerings",
+        "tags": [
+          "catalogue"
+        ]
+      },
+      "post": {
+        "operationId": "create_offering_centres__centre_id__tests__post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "centre_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Centre Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OfferingCreate"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OfferingDetail"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Create Offering",
+        "tags": [
+          "catalogue"
+        ]
+      }
+    },
+    "/centres/{centre_id}/tests/{test_id}/": {
+      "delete": {
+        "operationId": "delete_offering_centres__centre_id__tests__test_id___delete",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "centre_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Centre Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "test_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Test Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Delete Offering",
+        "tags": [
+          "catalogue"
+        ]
+      },
+      "patch": {
+        "operationId": "patch_offering_centres__centre_id__tests__test_id___patch",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "centre_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Centre Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "test_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Test Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OfferingUpdate"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OfferingDetail"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Patch Offering",
+        "tags": [
+          "catalogue"
+        ]
+      }
+    },
+    "/health/": {
+      "get": {
+        "description": "Return metadata without requiring database availability.",
+        "operationId": "health_health__get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "title": "Response Health Health  Get",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Get service metadata",
+        "tags": [
+          "health"
+        ]
+      }
+    },
+    "/health/db/": {
+      "get": {
+        "description": "Confirm the application can reach PostgreSQL without requiring migrations.",
+        "operationId": "database_health_health_db__get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "title": "Response Database Health Health Db  Get",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Check database connectivity",
+        "tags": [
+          "health"
+        ]
+      }
+    },
+    "/health/live/": {
+      "get": {
+        "description": "Confirm that the application process can serve requests.",
+        "operationId": "live_health_live__get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "title": "Response Live Health Live  Get",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Check whether the process is live",
+        "tags": [
+          "health"
+        ]
+      }
+    },
+    "/health/ready/": {
+      "get": {
+        "description": "Confirm the database accepts a bounded query and is at the expected revision.",
+        "operationId": "ready_health_ready__get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "title": "Response Ready Health Ready  Get",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Check database and schema readiness",
+        "tags": [
+          "health"
+        ]
+      }
+    },
+    "/payments/": {
+      "post": {
+        "operationId": "create_payments__post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PaymentCreate"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaymentDetail"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Create",
+        "tags": [
+          "payments"
+        ]
+      }
+    },
+    "/payments/webhook/": {
+      "post": {
+        "operationId": "webhook_payments_webhook__post",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "x-webhook-secret",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Webhook-Secret"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WebhookRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WebhookResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "WebhookSecret": []
+          }
+        ],
+        "summary": "Webhook",
+        "tags": [
+          "payments"
+        ]
+      }
+    },
+    "/payments/{payment_id}/": {
+      "get": {
+        "operationId": "detail_payments__payment_id___get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "payment_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Payment Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaymentDetail"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Detail",
+        "tags": [
+          "payments"
+        ]
+      }
+    },
+    "/tests/": {
+      "get": {
+        "operationId": "tests_tests__get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "name",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Name"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 20,
+              "maximum": 100,
+              "minimum": 1,
+              "title": "Limit",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "required": false,
+            "schema": {
+              "default": 0,
+              "minimum": 0,
+              "title": "Offset",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "title": "Response Tests Tests  Get",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Tests",
+        "tags": [
+          "catalogue"
+        ]
+      },
+      "post": {
+        "operationId": "create_test_tests__post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DiagnosticTestCreate"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DiagnosticTestDetail"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Create Test",
+        "tags": [
+          "catalogue"
+        ]
+      }
+    },
+    "/tests/{test_id}/": {
+      "delete": {
+        "operationId": "delete_test_tests__test_id___delete",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "test_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Test Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Delete Test",
+        "tags": [
+          "catalogue"
+        ]
+      },
+      "patch": {
+        "operationId": "patch_test_tests__test_id___patch",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "test_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Test Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DiagnosticTestUpdate"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DiagnosticTestDetail"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Patch Test",
+        "tags": [
+          "catalogue"
+        ]
+      }
+    }
+  }
+}
