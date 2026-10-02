@@ -16,7 +16,7 @@ SessionDep = Annotated[Session, Depends(get_db_session)]
 CurrentUser = Annotated[User, Depends(get_current_user)]
 @router.post("/", response_model=PaymentDetail)
 def create(payload: PaymentCreate, session: SessionDep, user: CurrentUser, response: Response) -> PaymentDetail:
-    payment, created = payments.finalize(session, user.id, payload.booking_id, payload.simulate_status)
+    payment, created = payments.create_payment(session, user.id, payload.booking_id)
     response.status_code = status.HTTP_201_CREATED if created else status.HTTP_200_OK
     return PaymentDetail.model_validate(payment)
 @router.get("/{payment_id}/", response_model=PaymentDetail)

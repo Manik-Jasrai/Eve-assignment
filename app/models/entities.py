@@ -122,7 +122,14 @@ class WebhookEvent(TimestampedEntity):
     __table_args__ = (
         CheckConstraint("reported_status IN ('SUCCESS', 'FAILED')", name="reported_status"),
         CheckConstraint("disposition IN ('APPLIED', 'NOOP')", name="disposition"),
-        Index("uq_webhook_events_provider_event", "provider", "event_id", unique=True),
+        Index("ix_webhook_events_provider_event", "provider", "event_id"),
+        Index(
+            "uq_webhook_events_business_payload",
+            "provider",
+            "payment_id",
+            "reported_status",
+            unique=True,
+        ),
         Index("ix_webhook_events_payment", "payment_id"),
     )
 

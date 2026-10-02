@@ -394,14 +394,10 @@
             "format": "uuid",
             "title": "Booking Id",
             "type": "string"
-          },
-          "simulate_status": {
-            "$ref": "#/components/schemas/PaymentStatus"
           }
         },
         "required": [
-          "booking_id",
-          "simulate_status"
+          "booking_id"
         ],
         "title": "PaymentCreate",
         "type": "object"
@@ -528,6 +524,15 @@
         "title": "ValidationError",
         "type": "object"
       },
+      "WebhookDisposition": {
+        "enum": [
+          "APPLIED",
+          "NOOP",
+          "DUPLICATE"
+        ],
+        "title": "WebhookDisposition",
+        "type": "string"
+      },
       "WebhookRequest": {
         "additionalProperties": false,
         "example": {
@@ -572,10 +577,15 @@
             "type": "string"
           },
           "status": {
-            "$ref": "#/components/schemas/PaymentStatus",
+            "enum": [
+              "SUCCESS",
+              "FAILED"
+            ],
             "examples": [
               "SUCCESS"
-            ]
+            ],
+            "title": "Status",
+            "type": "string"
           }
         },
         "required": [
@@ -591,8 +601,7 @@
       "WebhookResponse": {
         "properties": {
           "disposition": {
-            "title": "Disposition",
-            "type": "string"
+            "$ref": "#/components/schemas/WebhookDisposition"
           },
           "payment_id": {
             "format": "uuid",

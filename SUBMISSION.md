@@ -25,9 +25,9 @@ python -m pytest -q
 - Argon2 password hashing and JWT bearer authentication.
 - Diagnostic-centre, diagnostic-test, and offering catalogue APIs.
 - Authenticated bookings with server-side INR-paise price snapshots.
-- Simulated `SUCCESS` and `FAILED` payment processing with booking-state transitions.
-- Secret-protected, idempotent webhooks using provider event IDs and payload hashes.
-- PostgreSQL/Alembic schema migrations, Docker Compose, OpenAPI export, and 24 passing tests.
+- Pending payment initiation followed by simulated asynchronous `SUCCESS` or `FAILED` webhook processing.
+- Secret-protected, idempotent webhooks that retain reusable provider event IDs and deduplicate business payloads.
+- PostgreSQL/Alembic schema migrations, Docker Compose, OpenAPI export, and automated tests.
 
 ## Assumptions
 

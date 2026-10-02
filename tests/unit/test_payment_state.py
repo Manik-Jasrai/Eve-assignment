@@ -6,7 +6,6 @@ import pytest
 
 from app.core.errors import ConflictError
 from app.core.states import BookingStatus, PaymentStatus
-from app.integrations.simulated_provider import simulate_result
 from app.models.entities import Booking
 from app.services.payment_state import apply_payment_result, create_pending_payment
 
@@ -50,10 +49,3 @@ def test_invalid_payment_records_are_rejected() -> None:
     payment.amount_minor = 1
     with pytest.raises(ConflictError):
         apply_payment_result(payment, booking, PaymentStatus.SUCCESS)
-
-
-def test_simulator_is_deterministic_and_rejects_pending() -> None:
-    assert simulate_result("SUCCESS") is PaymentStatus.SUCCESS
-    assert simulate_result(PaymentStatus.FAILED) is PaymentStatus.FAILED
-    with pytest.raises(Exception):
-        simulate_result("PENDING")
